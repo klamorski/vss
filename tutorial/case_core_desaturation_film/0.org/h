@@ -1,0 +1,54 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      h;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 0 0 0 0 0];
+
+internalField   uniform -0.0001;
+
+boundaryField
+{
+    frontAndBack
+    {
+        type    empty;
+    }
+    
+    lowerWall
+    {
+        type fixedValue;
+        value uniform -10; 
+
+        //time variable boundary condition
+        /* 
+        type            codedFixedValue;
+        value           uniform 0;
+        name            increasingFixedValue;
+        code
+        #{
+            const scalar t = this->db().time().value();
+            const scalar t_inc = 2.5*24*3600;
+            operator==(-10*min(t/t_inc, 1));
+        #}; 
+        */
+
+    }
+
+    upperWall
+    {
+        type zeroFlux;
+    }
+}
+
+// ************************************************************************* //

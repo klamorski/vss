@@ -1,0 +1,2 @@
+soilFoam.C
+EXE = $(FOAM_APPBIN)/soilFoam

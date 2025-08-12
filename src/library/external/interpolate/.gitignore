@@ -1,0 +1,5 @@
+.*.swp
+*.o
+int
+build*
+CMakeUserPresets.json

@@ -1,0 +1,46 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      transportProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+processes
+{
+    water
+    {
+        capillary_flow true;
+        film_flow false;
+        vapor_flow none; 
+    };
+    heat {
+        conduction_flow false;
+        convection_flow false;
+        vapor_flow false;
+    };
+};
+
+swrc_model          "vg"; 
+no_of_regions              1;
+
+shp_ret_vg_alpha_0    0.7900;
+shp_ret_vg_n_0        10.4; 
+shp_ret_th_s_0        0.25;
+shp_ret_th_r_0        0.153;
+shp_mual_k_sat_0      1.25000000E-05;
+
+
+algorithm {
+};
+
+// ************************************************************************* //

@@ -1,0 +1,62 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    h
+    {
+          solver          PCG; //7(FPCG GAMG PBiCGStab PCG PPCG PPCR smoothSolver)
+          preconditioner  DIC; //6(DIC FDIC GAMG diagonal distributedDIC none)
+          //smoother DICGaussSeidel; //6(DIC DICGaussSeidel FDIC GaussSeidel nonBlockingGaussSeidel symGaussSeidel)
+          tolerance       1e-60;
+          relTol          0.001; 
+    }
+
+    hFinal
+    {
+          $h
+          tolerance       1e-60;
+          relTol          0; 
+    }
+}
+
+PISO {
+    nCorrectors     1; // number of inner PISO loops ( while (pimple.correct()) { ... } )
+    nNonOrthogonalCorrectors 0; // 1 means one additional loop solving the equation
+    pRefCell        0;
+    pRefValue       0;
+
+    
+    // residualControl {
+    //     h
+    //     {
+    //         tolerance   1e-20;
+    //         relTol      0;
+    //     }
+        
+    // //     // K
+    // //     // {
+    // //     //     tolerance   1e-2;
+    // //     //     relTol      0.1;
+    // //     // }
+    // }   
+
+}
+
+
+
+// ************************************************************************* //

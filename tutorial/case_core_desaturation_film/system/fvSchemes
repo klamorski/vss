@@ -1,0 +1,121 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default          CrankNicolson 0.2;// to dziąłało lepiej
+    //default          Euler;//backward; //Euler;
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+    grad(h)         fourth;
+}
+
+divSchemes
+{
+    default         Gauss linear corrected;
+}
+
+laplacianSchemes
+{
+    default         Gauss linear corrected;
+    //laplacian(K,h) Gauss linear limited 0.25;
+    laplacian(K,h) Gauss linear corrected;
+        //     58
+        // (
+        // CoBlended
+        // Gamma
+        // Gamma01
+        // LUST
+        // MUSCL
+        // MUSCL01
+        // Minmod
+        // OSPRE
+        // QUICK
+        // SFCD
+        // SuperBee
+        // UMIST
+        // biLinearFit
+        // blended
+        // cellCoBlended
+        // clippedLinear
+        // cubic
+        // cubicUpwindFit
+        // deferredCorrection
+        // downwind
+        // filteredLinear
+        // filteredLinear2
+        // filteredLinear3
+        // fixedBlended
+        // harmonic
+        // limitWith
+        // limitedCubic
+        // limitedCubic01
+        // limitedGamma
+        // limitedLimitedCubic
+        // limitedLimitedLinear
+        // limitedLinear
+        // limitedLinear01
+        // limitedMUSCL
+        // limitedVanLeer
+        // limiterBlended
+        // linear
+        // linearFit
+        // linearPureUpwindFit
+        // linearUpwind
+        // localBlended
+        // localMax
+        // localMin
+        // midPoint
+        // outletStabilised
+        // pointLinear
+        // quadraticFit
+        // quadraticLinearFit
+        // quadraticLinearUpwindFit
+        // quadraticUpwindFit
+        // reverseLinear
+        // skewCorrected
+        // upwind
+        // vanAlbada
+        // vanLeer
+        // vanLeer01
+        // weighted
+        // weightedFlux
+        // )
+    //9(corrected faceCorrected limited linearFit orthogonal quadraticFit relaxed skewCorrected uncorrected)
+}
+
+interpolationSchemes
+{
+    default         linear;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+fluxRequired
+{
+    default         no;
+    //h               ;
+}
+
+
+// ************************************************************************* //

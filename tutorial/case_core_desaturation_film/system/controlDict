@@ -1,0 +1,122 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+libs (
+      "libsoilFoam.so"
+     );
+
+application     soilFoam;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+deltaT            10; 
+
+writeInterval     60;
+
+endTime            #eval{8*24*3600}; //8days
+
+adjustTimeStep    false;
+
+deltaTSchedule
+(
+    //(max(currTime)  deltaT)
+    (600    0.01)      
+    (1500   0.1)
+    (3000     1) //after last max(currTime) deltaT is used till the end of simulation
+);
+
+writeControl    runTime; 
+
+purgeWrite     1;
+
+writeFormat     ascii;
+
+writePrecision  8;
+
+writeCompression off;
+
+timeFormat      fixed;
+
+timePrecision   2;
+
+runTimeModifiable true;
+
+allowSystemOperations 1;
+
+functions
+{
+        probes1
+        {                
+                type                probes;
+                libs                (sampling);        
+                timeStart           0;
+                writeControl        writeTime;
+                writePrecision      20;
+                interpolationScheme cellPointFace;
+                probeLocations
+                (
+                        ( 0.0005 0.000000000000000 0.0005 )
+                        ( 0.0005 0.001666666666667 0.0005 )
+                        ( 0.0005 0.003333333333333 0.0005 )
+                        ( 0.0005 0.005000000000000 0.0005 )
+                        ( 0.0005 0.006666666666667 0.0005 )
+                        ( 0.0005 0.008333333333333 0.0005 )
+                        ( 0.0005 0.010000000000000 0.0005 )
+                        ( 0.0005 0.011666666666667 0.0005 )
+                        ( 0.0005 0.013333333333333 0.0005 )
+                        ( 0.0005 0.015000000000000 0.0005 )
+                        ( 0.0005 0.016666666666667 0.0005 )
+                        ( 0.0005 0.018333333333333 0.0005 )
+                        ( 0.0005 0.020000000000000 0.0005 )
+                        ( 0.0005 0.021666666666667 0.0005 )
+                        ( 0.0005 0.023333333333333 0.0005 )
+                        ( 0.0005 0.025000000000000 0.0005 )
+                        ( 0.0005 0.026666666666667 0.0005 )
+                        ( 0.0005 0.028333333333333 0.0005 )
+                        ( 0.0005 0.030000000000000 0.0005 )
+                        ( 0.0005 0.031666666666667 0.0005 )
+                        ( 0.0005 0.033333333333333 0.0005 )
+                        ( 0.0005 0.035000000000000 0.0005 )
+                        ( 0.0005 0.036666666666667 0.0005 )
+                        ( 0.0005 0.038333333333333 0.0005 )
+                        ( 0.0005 0.040000000000000 0.0005 )
+                        ( 0.0005 0.041666666666667 0.0005 )
+                        ( 0.0005 0.043333333333333 0.0005 )
+                        ( 0.0005 0.045000000000000 0.0005 )
+                        ( 0.0005 0.046666666666667 0.0005 )
+                        ( 0.0005 0.048333333333333 0.0005 )
+                        ( 0.0005 0.050000000000000 0.0005 )
+                );     
+                fields
+                (                       
+                        h
+                        Theta
+                        K
+                        Cv
+                        gradHy
+                        hTotal
+                        fluxWaterY
+                );
+        }
+};
+
+// ************************************************************************* //
+

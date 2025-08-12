@@ -1,0 +1,40 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      h;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 0 0 0 0 0];
+
+internalField   uniform -0.0;
+
+boundaryField
+{
+    frontAndBack
+    {
+        type    empty;
+    }
+    
+    lowerWall
+    {
+        type zeroFlux;
+    }
+
+    upperWall
+    {
+        type variableFlux;
+        variable_flux_fname "sand_evap_rate.csv";
+    }
+}
+
+// ************************************************************************* //

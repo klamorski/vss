@@ -1,0 +1,2 @@
+soilDyMFoam.C
+EXE = $(FOAM_APPBIN)/soilDyMFoam

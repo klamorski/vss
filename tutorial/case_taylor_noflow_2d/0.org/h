@@ -1,0 +1,65 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      h;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 0 0 0 0 0];
+
+internalField   uniform -15.24;
+
+boundaryField
+{
+    leftWall
+    {
+        type            zeroGradient;
+    }
+    frontAndBack
+    {
+        type            empty;
+    }
+    rightWall
+    {
+        type            zeroGradient;
+    }
+    lowerWall
+    {
+        type            fixedValue;
+		value 			uniform 	-15.24;
+    }
+    upperWall
+    {
+        type            codedFixedValue;
+        value           uniform -15.24;
+        name            codedBC;
+        code
+        #{
+            const scalar alpha = 0.19;
+            const scalar hr = -15.24;
+            const scalar a = 1;
+            const scalar pi = 3.14159265358979323846;
+            const scalar pi_a = pi/a;
+            const scalar e_alpha_hr = exp(alpha*hr);
+            const vectorField& Cf = this->patch().Cf();
+
+            forAll(this->patch(), faceI)
+            {
+                const vector& pos = Cf[faceI];
+                scalar val = log(e_alpha_hr + (1.0 - e_alpha_hr)/2.0 * (1.0 - cos(2.0 * pi_a * (pos.x()))))/alpha;
+                operator[](faceI) = val;
+            }
+        #};
+    }
+}
+
+// ************************************************************************* //
